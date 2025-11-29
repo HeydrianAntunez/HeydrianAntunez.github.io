@@ -4,4 +4,7 @@ _site/
 .Rhistory
 .RData
 .DS_Store
-.Rproj.user
+.Rproj.user/
+
+/.quarto/
+**/*.quarto_ipynb
