@@ -1,0 +1,7 @@
+# Ignorar la carpeta de salida generada por Quarto
+_site/
+# Ignorar archivos temporales comunes
+.Rhistory
+.RData
+.DS_Store
+.Rproj.user
