@@ -1,5 +1,0 @@
-"0","wifi_limpio <- wifi %>%"
-"0","  drop_na(longitud, latitud)"
-"0","wifi_sf<-st_as_sf(wifi_limpio, "
-"0","                  coords = c(""longitud"", ""latitud""),"
-"0","                  crs=4326)"
