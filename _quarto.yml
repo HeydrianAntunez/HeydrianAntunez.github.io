@@ -3,8 +3,8 @@ project:
   output-dir: docs
 editor: visual
   index: HeydrianDB.qmd  
+  
 website:
-
   navbar:
     left:
       - text: "Home" # Ahora tu perfil es una página separada
