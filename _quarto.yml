@@ -1,14 +1,11 @@
 project:
   type: website
   output-dir: docs
-editor: visual
-  index: HeydrianDB.qmd  
-  
 website:
   navbar:
     left:
       - text: "Home" # Ahora tu perfil es una página separada
-        href: HeydrianDB.qmd 
+        href: index.qmd 
       - text: "Portafolio" # Enlace a la nueva página
         href: Portafolio.qmd
       - text: "CV"
