@@ -1,0 +1,160 @@
+/*Define la barra de home*/
+
+.navbar-nav {
+    /* Define el contenedor de la navbar como un Flexbox */
+    display: flex;
+    /* Mueve el grupo de enlaces al centro del espacio disponible */
+    justify-content: center;
+    /* Ajusta el margen para centrar todo el bloque */
+    margin: 0 auto;
+    /* Opcional: Asegura que ocupe todo el ancho para un centrado efectivo */
+    width: 100%;
+}
+
+/*Alinea el cuerpo del texto y la imagen de perfil*/
+
+.perfil-container {
+    display: flex;
+    align-items: center; /* Alinea verticalmente la imagen y el texto */
+    width: 90%; 
+    margin: 0 auto; 
+}
+
+.columna-imagen {
+    flex: 1; /* Asigna espacio a la columna de la imagen */
+    padding-right: 40px; 
+    text-align: center; 
+}
+
+.imagen-perfil {
+    /* MODIFICACIÓN: Imagen dos veces más grande (ej. 200px) */
+    width: 300px; 
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.columna-texto {
+    flex: 2; /* El texto ocupa el doble de espacio que la imagen */
+    padding-left: 40px; 
+    
+    /* MODIFICACIÓN CLAVE DE LA LÍNEA: */
+    /* Gris (128, 128, 128) con 40% de transparencia (0.4) */
+    border-left: 2px solid rgba(128, 128, 128, 0.4); 
+}
+
+/* Estilos para que la lista de enlaces se vea limpia */
+.links-container {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc; /* Separador sutil para los enlaces */
+}
+
+.links-container ul {
+    list-style: none;
+    padding: 0;
+    
+    /* === MODIFICACIONES CLAVE === */
+    display: flex; /* Convierte la lista en un contenedor flexible */
+    justify-content: space-around; /* Distribuye los enlaces uniformemente */
+    /* Puedes usar 'justify-content: center;' si prefieres que estén agrupados al centro */
+}
+
+.links-container li {
+    margin-bottom: 5px;
+}
+
+    
+/*Justifica el cuerpo principal del texto*/ 
+.columna-texto p {
+    text-align: justify;
+}
+
+
+/* --- ESTILOS DE PORTAFOLIO --- */
+/* 1. Contenedor de la Cuadrícula: Mantiene las tarjetas organizadas */
+
+.portfolio-grid {
+.portfolio-grid {
+    display: grid;
+    /* 💥 ¡CORRECCIÓN DE TAMAÑO! Esto ahora sí funcionará con la estructura HTML corregida */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Usamos 280px */
+    gap: 30px; 
+    padding: 20px 0; /* padding arriba y abajo */
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* 3. Estilo para la Imagen de Portada */
+.project-image-container {
+    width: 100%;
+    /* 💥 ¡CAMBIO CRÍTICO! Usar proporción cuadrada (1:1) o ligeramente horizontal (4:3) como en el ejemplo. */
+    aspect-ratio: 4 / 3; /* Hace el contenedor ligeramente horizontal */
+    overflow: hidden;
+    background-color: #f7f7f7; /* Fondo gris claro si quedan barras */
+    border-radius: 8px 8px 0 0;
+}
+
+/* La imagen debe seguir conteniéndose: */
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mantiene la imagen completa */
+    display: block;
+}
+/* 2. Estilo de la Tarjeta Individual (El cuadro) */
+.project-card {
+    display: flex;
+    flex-direction: column; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+    /* Reglas de ANCHO (las que funcionaron, estas SÍ se mantienen) */
+    max-width: 250px; 
+    justify-self: center;
+    width: 100%;
+    text-decoration: none; 
+    color: inherit; 
+}
+/* Efecto al pasar el ratón (Hover) */
+
+.project-card:hover {
+
+    transform: translateY(-5px); /* Se levanta ligeramente */
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+/* La imagen debe seguir conteniéndose: */
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mantiene la imagen completa */
+    display: block;
+}
+
+
+/* 4. Contenido de Texto y Metadatos */
+
+.project-content {
+    padding:  15px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex-grow: 1; /* Permite que el contenido se expanda y empuje la fecha hacia abajo si hay espacio */
+}
+
+
+
+.project-title {
+    font-size: 1.2em;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+

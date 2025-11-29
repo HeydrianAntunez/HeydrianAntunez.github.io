@@ -1,0 +1,17 @@
+{
+  "hash": "02515efdf5590f01777218b4910b35f9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "```{=html}\n<div class=\"perfil-container\">\n    \n    <div class=\"columna-imagen\">\n        \n        <img src=\"images/foto profesional.png\" alt=\"Foto de Perfil\" class=\"imagen-perfil\">\n        \n        <div class=\"links-container\">\n            <ul>\n                <li><a href=\"https://www.linkedin.com/in/adrián-cruz-antúnez-312098184/\" target=\"_blank\"><i class=\"fab fa-linkedin\"></i> LinkedIn</a></li>\n                <li><a href=\"https://github.com/HeydrianAntunez\" target=\"_blank\"><i class=\"fab fa-github\"></i> GitHub</a></li>\n                <li><a href=\"mailto:adrianantunezcruz@gmail.com\"><i class=\"fas fa-envelope\"></i> Gmail</a></li>\n                </ul>\n        </div>\n        \n    </div>\n    <div class=\"columna-texto\">\n        <h2>Adrian Cruz, M.A. in Sociology</h2>\n        <p>My professional background and passion are centered on the dual investigation of quantitative and qualitative methods; between the everyday experience and the macro factors that affect social dynamics and relationships. My interest lies in trying to tell a story about society based on this dual contrast between the quantified datum and the lived datum.</p>\n\n        <p>I have experience using official public sources from Mexican government institutes and autonomous bodies, which has led to the creation of maps, charts, and all kinds of visualizations on different topics of public interest.</p>\n        \n        </div>\n</div>\n```\n\n## Running Code\n\nWhen you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n\n\nYou can add options to executable code like this\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 4\n```\n\n\n:::\n:::\n\n\nThe `echo: false` option disables the printing of code (only output is displayed).\n\nConversación en gemini para construir la pagina:\\\n<https://gemini.google.com/share/1145c7409fd7>\n\nSeguir ejemplo:\n\nFred Duong, Ph.D. – Fred Duong\n",
+    "supporting": [
+      "HeydrianDB_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": null,
+    "postProcess": false
+  }
+}

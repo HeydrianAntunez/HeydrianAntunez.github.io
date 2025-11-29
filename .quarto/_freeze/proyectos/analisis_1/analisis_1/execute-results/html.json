@@ -1,0 +1,15 @@
+{
+  "hash": "6d60aa18eb159c66a779687484e1eed8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Zonas de conexión gratuita en la Ciudad de México\"\nformat: html\neditor: visual\n---\n\n```{=html}\n<div class=\"description\">\n        <p>El siguiente código es una manera de mapear la Ciudad de México con elementos de interés como zonas de la ciudad, lo cual nos permite entender que la concentración de los servicios gratuitos están en la parte céntrica de la ciduad</p>\n```\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(hexbin)\nlibrary(ggplot2)\nlibrary(dplyr)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\n\nAdjuntando el paquete: 'dplyr'\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n```\n\n\n:::\n\n```{.r .cell-code}\nlibrary(sf)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLinking to GEOS 3.13.1, GDAL 3.11.4, PROJ 9.7.0; sf_use_s2() is TRUE\n```\n\n\n:::\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+editor: visual
+
+website:
+  navbar:
+    left:
+      - text: "Home" # Ahora tu perfil es una página separada
+        href: HeydrianDB.qmd 
+      - text: "Portafolio" # Enlace a la nueva página
+        href: Portafolio.qmd
+      - text: "CV"
+        href: MYCV.pdf # Enlace directo al PDF
+        target: _blank # Abre el PDF en una pestaña nueva
+        
+# === CLAVES DE FORMATO Y DISEÑO ===
+format:
+  html:
+    theme: cosmo
+    css: styles/perfil.css
+    include-in-header:
+      - text: |
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

@@ -1,0 +1,229 @@
+---
+title: "Zonas de conexión gratuita en la Ciudad de México"
+format: html
+editor: visual
+---
+
+```{=html}
+<div class="description">
+        <p>El siguiente código muestra la distribución de los 35,350 puntos de servicio de wifi en la Ciudad de México, los cuales los podemos encontrar en zonas como: el Aeropuerto, colonias periféricas, escuelas públicas, centros de salud, postes de calles, Pilares, postes del C5, sitios públicos, transporte público, unidades habitacionales y Utopías.
+      </p>
+```
+
+```{=html}
+<div class="description">
+Las librerías que usaremos serán las siguientes:
+      </p>
+```
+
+```{r}
+#| label: setup-librerias
+#| message: false
+#| warning: false
+library(readxl)
+library(tidyr)
+library(hexbin)
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(patchwork)
+```
+
+```{r}
+
+```
+
+```{r}
+#| label: carga-datos
+#| message: false
+#| warning: false
+#| results: hide 
+alcaldias_CDMX <- st_read("Data/Wifi Acceso/Alcaldías/poligonos_alcaldias_cdmx.shp")
+wifi<-read_excel("Data/Wifi Acceso/00-2025-wifi_gratuito_en_cdmx.xlsx")
+```
+
+::: description
+Para poder utilizar el archivo xlsx es necesario limpiar los datos geográficos y convertirlo a un archivo sph, lo que noa ayudará para le mapeado.
+
+```{r}
+wifi_limpio <- wifi %>%
+  drop_na(longitud, latitud)
+wifi_sf<-st_as_sf(wifi_limpio, 
+                  coords = c("longitud", "latitud"),
+                  crs=4326)
+```
+:::
+
+Con estos datos ya podemos graficar la zona de la Ciudad de México.
+
+```{r}
+#| label: mapa-wifi
+#| fig-width: 6.4   
+#| fig-height: 4.27  
+#| fig-dpi: 400  
+ggplot() +
+  # 1. CAPA BASE: Alcadías de la CDMX
+  geom_sf(data = alcaldias_CDMX, 
+          fill = "#212121",        # Color gris oscuro profundo para el fondo 
+          color = "#BDBDBD",       # Borde gris claro sutil
+          linewidth = 0.3) +       # Línea delgada
+  
+  # 2. PUNTOS WIFI: Se destacan sutilmente
+  geom_sf(data = wifi_sf, 
+          color = "#FFFFFF",       # Blanco puro para visibilidad
+          size = 0.05,              # Puntos un poco más grandes para presencia
+          alpha = 0.8) +           # Menos transparente para mayor impacto
+  
+  # 3. LÍMITE Y SISTEMA DE COORDENADAS (Importante mantener 4326/WGS84 para geografía)
+  coord_sf(crs = 4326) +
+  # 4. ETIQUETAS INFORMATIVAS 
+  labs(
+    title = "Puntos de Acceso WiFi Gratuitos",
+    subtitle = "Distribución por Alcaldía en la Ciudad de México",
+    caption = "Fuente: [Datos Abiertos Agencia Digital de Innovación Pública (ADIP)]. \nFecha: 1/09/2025"
+  ) +
+  
+  # 5. TEMA Y ESTILOS (El corazón del diseño profesional)
+  theme_void() + 
+  theme(
+    # FONDOS: Contraste con el mapa
+    plot.background = element_rect(fill = "#1A1A1A", color = NA), # Fondo general más oscuro
+    panel.background = element_rect(fill = "#1A1A1A", color = NA), # Fondo del panel (generalmente cubierto por geom_sf)
+    
+    # TEXTO: Títulos centrados, claros y estilizados
+    plot.title = element_text(
+      color = "#FFFFFF", 
+      size = 12, 
+      face = "bold",
+      hjust = 0.5,           # Centrado
+      margin = margin(t = 15)
+    ),
+    plot.subtitle = element_text(
+      color = "#BDBDBD", 
+      size = 8, 
+      hjust = 0.5,
+      margin = margin(b = 10)
+    ),
+    plot.caption = element_text(
+      color = "#5E5E5E", 
+      size = 6, 
+      hjust = 1,             # Alineado a la derecha
+      margin = margin(b = 5, r = 5)
+    ),
+    
+    # MARGENES (espacio alrededor del gráfico)
+    plot.margin = margin(10, 10, 10, 10)
+  )
+
+```
+
+¿Cuáles son las alcaldías con mayores y menores puntos de acceso? Creamos unas tablas que nos muestren los top 5 alcaldías con mayores y menos puntos de acceso.
+
+```{r}
+tabla_top5_mayor<-wifi_limpio%>%
+  group_by(alcaldia)%>%
+  summarise(Total_Puntos_Wifi= n())%>%
+  arrange(desc(Total_Puntos_Wifi))%>%
+  slice_head(n=5)
+tabla_top5_mayor
+```
+
+```{r}
+tabla_top5_menor<-wifi_limpio%>%
+  group_by(alcaldia)%>%
+  filter(alcaldia!="IZTAPALAPA")%>%
+  summarise(Total_Puntos_Wifi= n())%>%
+  arrange(Total_Puntos_Wifi)%>%
+  slice_head(n=5)
+tabla_top5_menor
+```
+
+Creamos gráfiacs de columnas para cada una de las tablas y las guardamos.
+
+```{r}
+gráfica_top_mayor<-ggplot(tabla_top5_mayor, aes(x= reorder(alcaldia,-Total_Puntos_Wifi), y= Total_Puntos_Wifi))+
+  geom_col(fill = "#00BFFF", # Color turquesa brillante (alto contraste con el fondo oscuro)
+           width = 0.7) +
+  geom_text(aes(label = Total_Puntos_Wifi), 
+            vjust = -0.5, # Ajuste vertical para colocar la etiqueta justo arriba de la barra
+            color = "#FFFFFF", # Texto blanco brillante
+            size = 5,
+            # family = "roboto", # Descomentar si usaste showtext
+            fontface = "bold") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + # Asegura espacio para las etiquetas
+  labs(
+    title = "Top 5 Alcaldías",
+    x = NULL, # Quitamos la etiqueta del eje X (ya se entiende que son Alcaldías)
+    y = "Total de Puntos WiFi"
+  ) +
+  theme_minimal() + # Un buen punto de partida para gráficos de barras
+  theme(
+    # FONDOS
+    plot.background = element_rect(fill = "#1A1A1A", color = NA),
+    panel.background = element_rect(fill = "#1A1A1A", color = NA),
+    panel.grid.major.x = element_blank(), # Quitamos las líneas verticales (no son necesarias)
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.y = element_line(color = "#333333"), # Líneas horizontales sutiles
+    
+    # TEXTO DE EJES Y ETIQUETAS
+    axis.text.x = element_text(color = "#FFFFFF", size = 12, angle = 45, hjust = 1), # Gira las etiquetas X
+    axis.text.y = element_text(color = "#FFFFFF", size = 12),
+    axis.title.y = element_text(color = "#BDBDBD", size = 12, margin = margin(r = 15)),
+    
+    # TÍTULOS
+    plot.title = element_text(color = "#FFFFFF", size = 20, face = "bold", hjust = 0.5, margin = margin(t = 15)),
+    plot.subtitle = element_text(color = "#BDBDBD", size = 14, hjust = 0.5, margin = margin(b = 20)),
+    plot.caption = element_text(color = "#5E5E5E", size = 8, hjust = 1, margin = margin(b = 5, r = 5)),
+    
+    plot.margin = margin(10, 10, 10, 10)
+  )
+
+gráfica_top_menor<-ggplot(tabla_top5_menor, aes(x= reorder(alcaldia,-Total_Puntos_Wifi), y= Total_Puntos_Wifi))+
+  geom_col(fill = "#00BFFF", # Color turquesa brillante (alto contraste con el fondo oscuro)
+           width = 0.7) +
+  geom_text(aes(label = Total_Puntos_Wifi), 
+            vjust = -0.5, # Ajuste vertical para colocar la etiqueta justo arriba de la barra
+            color = "#FFFFFF", # Texto blanco brillante
+            size = 5,
+            # family = "roboto", # Descomentar si usaste showtext
+            fontface = "bold") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + # Asegura espacio para las etiquetas
+  labs(
+    title = "Top 5 Alcaldías",
+    x = NULL, # Quitamos la etiqueta del eje X (ya se entiende que son Alcaldías)
+    y = "Total de Puntos WiFi"
+  ) +
+  theme_minimal() + # Un buen punto de partida para gráficos de barras
+  theme(
+    # FONDOS
+    plot.background = element_rect(fill = "#1A1A1A", color = NA),
+    panel.background = element_rect(fill = "#1A1A1A", color = NA),
+    panel.grid.major.x = element_blank(), # Quitamos las líneas verticales (no son necesarias)
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.y = element_line(color = "#333333"), # Líneas horizontales sutiles
+    
+    # TEXTO DE EJES Y ETIQUETAS
+    axis.text.x = element_text(color = "#FFFFFF", size = 12, angle = 45, hjust = 1), # Gira las etiquetas X
+    axis.text.y = element_text(color = "#FFFFFF", size = 12),
+    axis.title.y = element_text(color = "#BDBDBD", size = 12, margin = margin(r = 15)),
+    
+    # TÍTULOS
+    plot.title = element_text(color = "#FFFFFF", size = 20, face = "bold", hjust = 0.5, margin = margin(t = 15)),
+    plot.subtitle = element_text(color = "#BDBDBD", size = 14, hjust = 0.5, margin = margin(b = 20)),
+    plot.caption = element_text(color = "#5E5E5E", size = 8, hjust = 1, margin = margin(b = 5, r = 5)),
+    
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+Presentamos las dos tablas en un dashboard que nos permita compararlas y entender mejor la distribución de los puntos wifi.
+
+```{r}
+gráfica_top_mayor|gráfica_top_menor
+```
+
+### Conclusión
+
+Explorar la base de datos de la Agencia Digital de Innovación Pública nos permite observar algo crucial: la falta de instalalaciones para estos servicios públicos en las zonas sur de la ciudad. Cabe preguntarse por qué en Milpa Alta apenas y existen 349 puntos de acceso, siendo que en las cinco alcaldías con mayores puntos la cifra supera los 2800.
+
+Fuente: <https://datos.cdmx.gob.mx/dataset/puntos-de-acceso-wifi-en-la-cdmx>
