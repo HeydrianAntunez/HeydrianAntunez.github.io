@@ -18,6 +18,7 @@
     align-items: center; /* Alinea verticalmente la imagen y el texto */
     width: 90%; 
     margin: 0 auto; 
+    padding: 20px 0; /* Espacio superior e inferior */
 }
 
 .columna-imagen {
@@ -27,7 +28,7 @@
 }
 
 .imagen-perfil {
-    /* MODIFICACIÓN: Imagen dos veces más grande (ej. 200px) */
+    /* Tamaño en escritorio */
     width: 300px; 
     height: 300px;
     object-fit: cover;
@@ -38,8 +39,7 @@
     flex: 2; /* El texto ocupa el doble de espacio que la imagen */
     padding-left: 40px; 
     
-    /* MODIFICACIÓN CLAVE DE LA LÍNEA: */
-    /* Gris (128, 128, 128) con 40% de transparencia (0.4) */
+    /* Línea divisoria vertical */
     border-left: 2px solid rgba(128, 128, 128, 0.4); 
 }
 
@@ -54,55 +54,47 @@
     list-style: none;
     padding: 0;
     
-    /* === MODIFICACIONES CLAVE === */
-    display: flex; /* Convierte la lista en un contenedor flexible */
-    justify-content: space-around; /* Distribuye los enlaces uniformemente */
-    /* Puedes usar 'justify-content: center;' si prefieres que estén agrupados al centro */
+    /* En escritorio, distribuye los enlaces */
+    display: flex; 
+    justify-content: space-around; 
 }
 
 .links-container li {
     margin-bottom: 5px;
 }
 
-    
 /*Justifica el cuerpo principal del texto*/ 
 .columna-texto p {
     text-align: justify;
 }
 
 
-/* --- ESTILOS DE PORTAFOLIO --- */
-/* 1. Contenedor de la Cuadrícula: Mantiene las tarjetas organizadas */
+/* --- ESTILOS DE PORTAFOLIO (Se mantienen igual) --- */
 
 .portfolio-grid {
-.portfolio-grid {
-    display: grid;
-    /* 💥 ¡CORRECCIÓN DE TAMAÑO! Esto ahora sí funcionará con la estructura HTML corregida */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Usamos 280px */
-    gap: 30px; 
-    padding: 20px 0; /* padding arriba y abajo */
-    max-width: 1200px; 
-    margin: 0 auto; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px; 
+    padding: 20px 0;
+    max-width: 1200px; 
+    margin: 0 auto; 
 }
 
-/* 3. Estilo para la Imagen de Portada */
 .project-image-container {
-    width: 100%;
-    /* 💥 ¡CAMBIO CRÍTICO! Usar proporción cuadrada (1:1) o ligeramente horizontal (4:3) como en el ejemplo. */
-    aspect-ratio: 4 / 3; /* Hace el contenedor ligeramente horizontal */
-    overflow: hidden;
-    background-color: #f7f7f7; /* Fondo gris claro si quedan barras */
-    border-radius: 8px 8px 0 0;
+    width: 100%;
+    aspect-ratio: 4 / 3; 
+    overflow: hidden;
+    background-color: #f7f7f7; 
+    border-radius: 8px 8px 0 0;
 }
 
-/* La imagen debe seguir conteniéndose: */
 .project-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Mantiene la imagen completa */
-    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    display: block;
 }
-/* 2. Estilo de la Tarjeta Individual (El cuadro) */
+
 .project-card {
     display: flex;
     flex-direction: column; 
@@ -110,101 +102,81 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     background-color: #fff;
-    /* Reglas de ANCHO (las que funcionaron, estas SÍ se mantienen) */
     max-width: 250px; 
     justify-self: center;
     width: 100%;
     text-decoration: none; 
     color: inherit; 
 }
-/* Efecto al pasar el ratón (Hover) */
 
 .project-card:hover {
-
-    transform: translateY(-5px); /* Se levanta ligeramente */
-
+    transform: translateY(-5px); 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-
 }
-
-/* La imagen debe seguir conteniéndose: */
-.project-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Mantiene la imagen completa */
-    display: block;
-}
-
-
-/* 4. Contenido de Texto y Metadatos */
 
 .project-content {
-    padding:  15px;
-
+    padding: 15px;
     display: flex;
-
     flex-direction: column;
-
-    flex-grow: 1; /* Permite que el contenido se expanda y empuje la fecha hacia abajo si hay espacio */
+    flex-grow: 1; 
 }
-
-
 
 .project-title {
     font-size: 1.2em;
-
     font-weight: bold;
-
     margin-bottom: 5px;
 }
 
 
+/* -------------------------------------------------------------------------- */
 /* REGLAS DE RESPONSIVIDAD PARA MÓVILES (< 768px)             */
+/* -------------------------------------------------------------------------- */
 
 @media (max-width: 768px) {
-    /* 1. Cambia la Dirección del Contenedor Principal */
-    /* Cuando la pantalla sea <= 768px, apila los elementos (imagen y texto) verticalmente. */
+    /* 1. Contenedor Principal: Usa el 100% y se apila */
     .perfil-container {
-        flex-direction: column; /* Cambia de fila a columna */
-        width: 95%; /* Ocupa más ancho en móvil */
+        flex-direction: column; /* Apila elementos */
+        width: 100%; /* CLAVE: Asegura el ancho total */
+        padding: 0 20px; /* Margen a los lados */
     }
 
-    /* 2. Columna de la Imagen (Ahora en la parte superior) */
+    /* 2. Columna de la Imagen (Arriba) */
     .columna-imagen {
-        flex: none; /* Ignora las proporciones de flexbox */
-        padding-right: 0; /* Elimina el padding lateral de escritorio */
-        padding-bottom: 20px; /* Añade espacio debajo de la imagen */
-        width: 100%; /* Ocupa todo el ancho disponible */
-        order: 1; /* Asegura que aparezca PRIMERO (arriba) */
+        flex: none; 
+        padding: 0; 
+        width: 100%; 
+        order: 1; 
+        margin-bottom: 10px; /* Espacio extra debajo de los enlaces */
     }
 
     /* Ajusta el tamaño de la imagen de perfil para móvil */
     .imagen-perfil {
-        width: 150px; /* Reduce el tamaño en móvil para que no sea tan grande */
+        width: 150px; 
         height: 150px;
-        margin: 0 auto 10px auto; /* Centra la imagen */
+        margin: 0 auto 10px auto; 
+        display: block; 
     }
 
-    /* 3. Columna del Texto */
+    /* 3. Columna del Texto (Abajo) */
     .columna-texto {
-        flex: none; /* Ignora las proporciones de flexbox */
-        padding-left: 0; /* Elimina el padding lateral de escritorio */
+        flex: none; 
+        padding-left: 0; 
+        padding-right: 0;
         border-left: none; /* Elimina la línea divisoria vertical */
-        padding-top: 20px; /* Añade padding si lo necesitas */
-        order: 2; /* Asegura que aparezca SEGUNDO (abajo) */
-        
-        /* Ajusta la justificación para móvil para mejor legibilidad */
-        text-align: left; 
+        padding-top: 20px; 
+        width: 100%; 
+        order: 2; 
+        text-align: left; /* Alineación normal en móvil */
     }
 
-    /* Quitar el justify del texto principal en móvil para evitar espacios grandes */
+    /* Quitar el justify del texto principal en móvil */
     .columna-texto p {
         text-align: left;
     }
     
-    /* 4. Contenedor de Enlaces: Centra si es necesario en móvil */
+    /* 4. Contenedor de Enlaces: Centra */
     .links-container ul {
-        justify-content: center; /* Centra los enlaces debajo de la imagen */
-        gap: 15px; /* Añade un poco de espacio entre los enlaces */
+        justify-content: center; /* Centra los enlaces */
+        gap: 15px; 
     }
 }
