@@ -158,3 +158,54 @@
     margin-bottom: 5px;
 }
 
+/* -------------------------------------------------------------------------- */
+/* REGLAS DE RESPONSIVIDAD PARA MÓVILES (< 768px)             */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    /* 1. Cambia la Dirección del Contenedor Principal */
+    /* Cuando la pantalla sea <= 768px, apila los elementos (imagen y texto) verticalmente. */
+    .perfil-container {
+        flex-direction: column; /* Cambia de fila a columna */
+        width: 95%; /* Ocupa más ancho en móvil */
+    }
+
+    /* 2. Columna de la Imagen (Ahora en la parte superior) */
+    .columna-imagen {
+        flex: none; /* Ignora las proporciones de flexbox */
+        padding-right: 0; /* Elimina el padding lateral de escritorio */
+        padding-bottom: 20px; /* Añade espacio debajo de la imagen */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        order: 1; /* Asegura que aparezca PRIMERO (arriba) */
+    }
+
+    /* Ajusta el tamaño de la imagen de perfil para móvil */
+    .imagen-perfil {
+        width: 150px; /* Reduce el tamaño en móvil para que no sea tan grande */
+        height: 150px;
+        margin: 0 auto 10px auto; /* Centra la imagen */
+    }
+
+    /* 3. Columna del Texto */
+    .columna-texto {
+        flex: none; /* Ignora las proporciones de flexbox */
+        padding-left: 0; /* Elimina el padding lateral de escritorio */
+        border-left: none; /* Elimina la línea divisoria vertical */
+        padding-top: 20px; /* Añade padding si lo necesitas */
+        order: 2; /* Asegura que aparezca SEGUNDO (abajo) */
+        
+        /* Ajusta la justificación para móvil para mejor legibilidad */
+        text-align: left; 
+    }
+
+    /* Quitar el justify del texto principal en móvil para evitar espacios grandes */
+    .columna-texto p {
+        text-align: left;
+    }
+    
+    /* 4. Contenedor de Enlaces: Centra si es necesario en móvil */
+    .links-container ul {
+        justify-content: center; /* Centra los enlaces debajo de la imagen */
+        gap: 15px; /* Añade un poco de espacio entre los enlaces */
+    }
+}
