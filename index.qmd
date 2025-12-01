@@ -1,27 +1,49 @@
 ```{=html}
-<div class="perfil-container">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
     
-    <div class="columna-imagen">
-        
-        <img src="images/foto profesional.png" alt="Foto de Perfil" class="imagen-perfil">
-        
-        <div class="links-container">
-            <ul>
-                <li><a href="https://www.linkedin.com/in/adrián-cruz-antúnez-312098184/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                <li><a href="https://github.com/HeydrianAntunez" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-                <li><a href="mailto:adrianantunezcruz@gmail.com"><i class="fas fa-envelope"></i> Gmail</a></li>
-                </ul>
-        </div>
-        
-    </div>
-    <div class="columna-texto">
-        <h2>Adrian Cruz, M.A. in Sociology</h2>
-        <p>My professional background and passion are centered on the dual investigation of quantitative and qualitative methods; between the everyday experience and the macro factors that affect social dynamics and relationships. My interest lies in trying to tell a story about society based on this dual contrast between the quantified datum and the lived datum.</p>
+    <!-- === COLOCACIÓN CRÍTICA: Etiqueta Viewport para responsividad === -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ================================================================ -->
+    
+    <title>Adrian Cruz | Perfil Profesional</title>
+    
+    <!-- Asegúrate de enlazar tu archivo CSS aquí -->
+    <link rel="stylesheet" href="styles/perfil.css">
+    
+    <!-- También debes incluir los iconos de Font Awesome si usas i class="fab..." -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+</head>
+<body>
 
-        <p>I have experience using official public sources from Mexican government institutes and autonomous bodies, which has led to the creation of maps, charts, and all kinds of visualizations on different topics of public interest.</p>
-        <p>To check some of my content you can click the next link to view <a href="Portafolio.html">MY PORTAFOLIO</a>.</p>
+    <!-- A partir de aquí va el código que me proporcionaste: -->
+    <div class="perfil-container">
+        
+        <div class="columna-imagen">
+            
+            <img src="images/foto profesional.png" alt="Foto de Perfil" class="imagen-perfil">
+            
+            <div class="links-container">
+                <ul>
+                    <li><a href="https://www.linkedin.com/in/adrián-cruz-antúnez-312098184/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="https://github.com/HeydrianAntunez" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="mailto:adrianantunezcruz@gmail.com"><i class="fas fa-envelope"></i> Gmail</a></li>
+                </ul>
+            </div>
+            
         </div>
-</div>
+        <div class="columna-texto">
+            <h2>Adrian Cruz, M.A. in Sociology</h2>
+            <p>My professional background and passion are centered on the dual investigation of quantitative and qualitative methods; between the everyday experience and the macro factors that affect social dynamics and relationships. My interest lies in trying to tell a story about society based on this dual contrast between the quantified datum and the lived datum.</p>
+
+            <p>I have experience using official public sources from Mexican government institutes and autonomous bodies, which has led to the creation of maps, charts, and all kinds of visualizations on different topics of public interest.</p>
+            <p>To check some of my content you can click the next link to view <a href="Portafolio.html">MY PORTAFOLIO</a>.</p>
+        </div>
+    </div>
+
+</body>
+</html>
 ```
 
 ## 
