@@ -22,7 +22,7 @@ Las librerías que usaremos serán las siguientes:
 #| warning: false
 library(readxl)
 library(tidyr)
-library(hexbin)
+library(httr)
 library(ggplot2)
 library(dplyr)
 library(sf)
@@ -37,9 +37,20 @@ library(patchwork)
 #| label: carga-datos
 #| message: false
 #| warning: false
-#| results: hide 
-alcaldias_CDMX <- st_read("Data/Wifi Acceso/Alcaldías/poligonos_alcaldias_cdmx.shp")
-wifi<-read_excel("Data/Wifi Acceso/00-2025-wifi_gratuito_en_cdmx.xlsx")
+#| output: false
+#| results: hide
+###Cargamos las bases directamente del reservorio Github###
+url_shp_raw <- "https://raw.githubusercontent.com/HeydrianAntunez/Proyecto-WIFI-CDMX/main/poligonos_alcaldias_cdmx.shp"
+alcaldias_CDMX <- st_read(paste0("/vsicurl/", url_shp_raw), quiet = TRUE)
+##Guardamos la ruta para el archivo con los puntos de acceso
+url_xlsx_raw<-"https://raw.githubusercontent.com/HeydrianAntunez/Proyecto-WIFI-CDMX/main/00-2025-wifi_gratuito_en_cdmx.xlsx"
+#Creamos un archivo temporal donde R guardará el Excel descargado
+archivo_temporal <- tempfile(fileext = ".xlsx")
+# La función GET del paquete httr descarga el archivo
+invisible(GET(url_xlsx_raw, write_disk(archivo_temporal, overwrite = TRUE)))
+# 3. Leer la hoja de Excel desde el archivo temporal
+  # Especificamos el nombre de la hoja (en este caso CDMX).
+wifi <- read_excel(archivo_temporal, sheet = "CDMX")
 ```
 
 ::: description
