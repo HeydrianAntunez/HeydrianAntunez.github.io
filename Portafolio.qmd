@@ -13,25 +13,19 @@ editor: visual
 >         </div>
 >         <div class="project-content">
 >             <div class="project-title">Mapa Wifi Gratuito en la CDMX</div>
+>
+>           <div class="project-date">Nov 2025</div>
 >         </div>
 >     </a> 
 >      
->     <a href="proyectos/desempleo/reporte.qmd" class="project-card">
+>     <a href="proyectos/Ingresos/Tasa de Ingresos.qmd" class="project-card">
 >         <div class="project-image-container">
->             <img src="images/desempleo_preview.png" alt="Gráfico de tasas de desempleo" class="project-image">
+>             <img src="images/Tasa Anual Ingresos.jpeg" alt="Gráfico de tasas de desempleo" class="project-image">
 >         </div>
 >         <div class="project-content">
->             <div class="project-title">Análisis de Tasas de Desempleo</div>
+>             <div class="project-title">Ponderación de Ingresos y cálculo de tasas</div>
 >              
->             <p class="description">Exploración de datos históricos de INEGI para identificar tendencias en el desempleo juvenil y por género en el último lustro.</p>
->              
->             <div class="project-tags">
->                 <span class="tag tag-analysis">Análisis</span>
->                 <span class="tag tag-dataviz">DataViz</span>
->                 <span class="tag tag-rstudio">R/Shiny</span>
->             </div>
->              
->             <div class="project-date">OCT 2023</div>
+>             <div class="project-date">Dic 2025</div>
 >         </div>
 >     </a>
 >     </div>

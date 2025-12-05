@@ -17,7 +17,7 @@ Las librerías que usaremos serán las siguientes:
 ```
 
 ```{r}
-#| label: setup-librerias
+#| label: wifi-setup-librerias
 #| message: false
 #| warning: false
 library(readxl)

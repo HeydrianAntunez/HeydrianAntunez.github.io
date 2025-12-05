@@ -1,40 +1,20 @@
 {
-  "HeydrianDB.qmd": {
-    "HeydrianDB.html": "0d924271",
-    "HeydrianDB.tex": "dfc22e39"
+  "index.qmd": {
+    "index.html": "1aa50d48"
   },
-  "Project/Analysis 1/analysis_1.qmd": {
-    "analysis_1.html": "01c23393"
-  },
-  "CV.qmd": {
-    "CV.html": "f1f882bd",
-    "CV.tex": "f3ee57f7"
+  "proyectos/Ingresos/Tasa de ingresos.qmd": {
+    "tasa-final-de-ingresos.html": "d2fb0cc2"
   },
   "Portafolio.qmd": {
-    "Portafolio.html": "585ec593"
+    "Portafolio.html": "7daf4321"
   },
-  "Portafolio/Portafolio.qmd": {
-    "Portafolio.html": "8bf79b6f"
-  },
-  "Portafolio/Projects/Analysis 1/analysis_1.qmd": {
-    "analysis_1.html": "c4b309cc"
-  },
-  "proyectos/analisis_1/analysis_1.qmd": {
-    "analysis_1.html": "2a9ca9b7"
-  },
-  "proyectos/analisis_1/analisis_1.qmd": {
-    "analisis_1.html": "b4aeefee"
-  },
-  "proyectos/analisis_1/Acceso Wifi.qmd": {
-    "Acceso Wifi.html": "12d08553"
+  "CV.qmd": {
+    "CV.html": "a0d3aa83"
   },
   "proyectos/Mapa Wifi/Acceso Wifi.qmd": {
-    "Acceso Wifi.html": "da947b1c"
+    "Acceso Wifi.html": "227f88a6"
   },
   "proyectos/Mapa Wifi/Data/Wifi Acceso/Alcaldías/poligonos_alcaldias_cdmx.qmd": {
-    "poligonos_alcaldias_cdmx.html": "766baf13"
-  },
-  "index.qmd": {
-    "index.html": "d6d12073"
+    "poligonos_alcaldias_cdmx.html": "e1d2f646"
   }
 }
