@@ -18,7 +18,7 @@ editor: visual
 >         </div>
 >     </a> 
 >      
->     <a href="proyectos/Ingresos/Tasa de Ingresos.qmd" class="project-card">
+>     <a href="proyectos/Ingresos/Tasa-de-ingresos.qmd" class="project-card">
 >         <div class="project-image-container">
 >             <img src="images/Tasa Anual Ingresos.jpeg" alt="Gráfico de tasas de desempleo" class="project-image">
 >         </div>
