@@ -31,7 +31,7 @@ editor: visual
 >             <img src="images/Diseño Muestral.jpeg" alt="Vista previa" class="project-image">
 >         </div>
 >         <div class="project-content">
->             <div class="project-title">Diseño muestral y modelos de regresión</div>
+>             <div class="project-title">Diseño muestral</div>
 >             <div class="project-date">Octubre 2025</div>
 >         </div>
 >     </a>
