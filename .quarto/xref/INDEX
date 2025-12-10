@@ -16,5 +16,11 @@
   },
   "index.qmd": {
     "index.html": "ea08053e"
+  },
+  "proyectos/Ingresos/Tasa-de-ingresos.qmd": {
+    "tasa-final-de-ingresos.html": "390b0787"
+  },
+  "proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.qmd": {
+    "Diseño-muestras-complejas.html": "5a1aacba"
   }
 }
