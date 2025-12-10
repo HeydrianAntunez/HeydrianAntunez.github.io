@@ -1,0 +1,169 @@
+---
+title: "Modelos de regresión"
+editor: visual
+---
+
+#### Introducción
+
+Este proyecto muestra cómo aplicar pruebas estadísticas y modelos de regresión para el cálculo y visualización de relaciones entre variables (tanto numérica como categóricas).
+
+Se trabajará con datos pública de la base del INEGI, por lo que se puede optar poder descargar el archivo desde el repositorio Github o desde la página oficial de microdatos del INEGI.
+
+Al final se dará una breve explicación sobre cómo podemos mejorar la calidad de los modelos de regresión.
+
+```{=html}
+Para obtener la base de datos de la ENOE 2025Trimestre 2 pueden acceder al github en
+   <a href=https://github.com/HeydrianAntunez/INEGI-DOCUMENTOS/blob/main/conjunto_de_datos_sdem_enoe_2025_2t.zip target="_blank">
+            este enlace.
+        </a>
+```
+
+Como primer paso cargamos las librerías.
+
+```{r}
+#| message: false
+#| warning: false
+library(dplyr)
+library(ggplot2)
+library(survey)
+```
+
+Abrimos la base de datos que usaremos (sustituir ruta).
+
+```{r}
+#| message: false
+#| warning: false
+Enoe_2025_T2<-read.csv("C:/Users/USER/Downloads/Bases de datos/INEGI/ENOE SDME 2015 a 2025/conjunto_de_datos_sdem_enoe_2025_2t.csv")
+```
+
+Creamos nuestro diseño muestral.
+
+```{r}
+diseno<-svydesign(id=~upm, strata=~est, data=Enoe_2025_T2, 
+                  weights=~fac_tri)
+```
+
+Nota: Revisar el proyecto de Diseño de muestras complejas para entender los efectos de la factorización enla muestra.
+
+```{r}
+#Como primer paso creamos un filtro para analizar sólo aquellas observaciones que tengan un ingreso>0
+diseño_ingresos_filt<-subset(diseno, ingocup >0) 
+```
+
+El primer modelo de regresión consiste en establecer un relación entre el ingreso (variable continua) en función del sexo (categórica) y la edad (discreta).
+
+```{r}
+modelo1<-svyglm(ingocup~sex+ eda, design = diseño_ingresos_filt) #Establecemos un regresión lineal ponderada entre ingreso, sexo y edad.
+summary(modelo1)
+```
+
+Los resultados presentan el cambio estimado en el ingreso por cada unidad de cambio en la variable predictora, manteniendo las otras varaibles constantes.
+
+Intercepto= 13,516: para una persona con edad = 0 que pertenece al grupo base de sex= 1 (hombre).
+
+sex= -2,467.64:diferencia promedio en el ingreso entre el grupo sex. Indica que el valor para sex=2 (mujeres) tiene 2.467.64 unidades monetarias menos de ingreso que el grupo base.
+
+eda=4.89: Por cada año adicional de edad el ingreso aumenta en 4.89 unidades monetarias, manteniendo constante la varible sex. \*Se establecen erroes estándar para el cálculo de los estimadores.
+
+Lo más sobresaliente del modelo son los niveles de significancia. Aunque la variable categórica sex presenta un nivel de significancia importante, ya que es mucho menor a alpha =0.05, la variable discreta eda no es estadísticamente significativa por su alto valor p. Implicaciones: la variable sex, en este modelo, tiene influencia sobre la variable ingreso, por lo que no podemos descartar una dependencia entre variables; caso contrario, la variable edad, aquí, no se presenta como significativa para la relación de dependencia con los ingresos. Un posterior modelo permitirá decidir si la variable edad es necesaria para el análisis de regresión.
+
+Para continuar con el análisis, cremos otro modelo de regresión que añade ahora la variable educación:
+
+```{r}
+modelo2<- svyglm(ingocup~sex+ eda+ as.factor(cs_p13_1), design= diseño_ingresos_filt)
+summary(modelo2)
+```
+
+Del modelo se deduce lo siguiente:
+
+*Los estimadores:*
+
+Intercepto 7,098.28 cuando todos los demás valores son 0 (1= hombre para sex).
+
+*Sex: diferencia de -3136.14 entre base (hombres) y mujeres cuando todos los demás valores son igual 0.*
+
+Eda: incremento de 51.2 unidades monetarias de ingreso por unidad de edad.
+
+Valores P siginicativos para todas las interacciones, excepto, posiblemente, nivel de educación =1 (primaria) con p value= 0.0851.
+
+Conclusión: al integrar la variable ordnial educación en este nuevo modelo cambia la importancia de la variable discreta edad, haciendo que su nivel de significancia permita establecer relaciones de dependencia.
+
+Para finalizar, creamos un nuevo modelo.
+
+```{r}
+modelo3<-svyglm(ingocup~sex*eda+as.factor(cs_p13_1), design = diseño_ingresos_filt)
+summary(modelo3)
+```
+
+#### Conclusiones
+
+En este último modelo el cambio más importante es asumir el efecto de la interacción entre sex y eda, y no entre la eda y el ingreso, siendo que el resultado del primer modelo marcó una escaza significancia para asumir la interacción entre estas útlimas variables. Lo que se busca es robustecer el modelo para integrar los resultados de las interacciones más fuertes para tener una mejor representación de las relaciones entre variables. Si se observa, esto arroja un cambio en los estimadores que nos puede proporcionar información más relevante para el análisis de los ingresos en México. Como ejercicio final podemos hacer la representación gráfica de la relación lineal para ilustar cómo el último modelo nos permite visualizar la relación entre las varaibles.
+
+```{r}
+#| message: false
+#| warning: false
+library(ggeffects)
+
+#creamos el gráfico
+  #Elgráfrico muestra la diferencia de ingresos para las diferentes edad agrupadas por sexo, manteniendo la escolaridad constante en 7(licenciatura)
+
+library(scales)
+library(patchwork)
+#Para gente con estudios profesionales
+
+# Se fija la escolaridad (cs_p13_1) en un nivel, por ejemplo, el Nivel 7.
+predicciones_interaccion1 <- ggpredict(
+  model = modelo3, 
+  terms = c("eda [all]", "sex", "cs_p13_1 [7]")
+)
+
+grafico_interaccion1 <- plot(predicciones_interaccion1) +
+  labs(
+    # Título que resalta la diferencia (hallazgo clave)
+    title = "Ingresos por Edad y sexo",
+    # Subtítulo para añadir el contexto de la escolaridad (profesionaliza el gráfico)
+    subtitle = "Nivel de Escolaridad 7 (Profesional)",
+    x = "Edad (años)",
+    # Eje Y más específico
+    y = "Ingreso (Pesos MXN)",
+    color = "Sexo"
+  ) +
+  theme_minimal() +
+  # **Nueva capa para formato de eje Y**
+  scale_y_continuous(labels = label_number(big.mark = ",", prefix = "$")) +
+  scale_color_manual(
+    values = c("1" = "#E41A1C", "2" = "#377EB8"),
+    labels = c("1" = "Hombre", "2" = "Mujer")
+  )
+#Para gente con educación bachiller
+
+# Se fija la escolaridad (cs_p13_1) en un nivel 4.
+
+predicciones_interaccion2 <- ggpredict(
+  model = modelo3, 
+  terms = c("eda [all]", "sex", "cs_p13_1 [4]")
+)
+grafico_interaccion2 <- plot(predicciones_interaccion2) +
+  labs(
+    # Título que resalta la diferencia (hallazgo clave)
+    title = "Ingresos por Edad y sexo",
+    # Subtítulo para añadir el contexto de la escolaridad (profesionaliza el gráfico)
+    subtitle = " Nivel de Escolaridad 4 (bachillerato)",
+    x = "Edad (años)",
+    # Eje Y más específico
+    y = "Ingreso (Pesos MXN)",
+    color = "Sexo"
+  ) +
+  theme_minimal() +
+  # **Nueva capa para formato de eje Y**
+  scale_y_continuous(labels = label_number(big.mark = ",", prefix = "$")) +
+  scale_color_manual(
+    values = c("1" = "purple", "2" = "gold"),
+    labels = c("1" = "Hombre", "2" = "Mujer")
+  )
+grafico_interaccion1|grafico_interaccion2
+```
+
+Este útlimo gráfico nos permite entender la relación lineal de la variable dependiente (ingreso) y las variables independientes (sexo, nivel educativo y edad).
+
+Para la visualización final se utilizó un patchwork que muestra la comparativa entre dos regresiones con diferentes grados de educación para ver cómo la variable ingreso se presenta diferenciadamente entre uno y otro, la cual nos incita a pensar en el peso de la educación para el aumento del ingreso y en el sesgo que presenta la edad y el sexo.

@@ -6,27 +6,45 @@ editor: visual
 
 > ```{=html}
 > <div class="portfolio-grid">
->
 >     <a href="proyectos/Mapa Wifi/Acceso Wifi.qmd" class="project-card">
 >         <div class="project-image-container">
 >             <img src="images/Acceso Wifi.jpeg" alt="Vista previa" class="project-image">
 >         </div>
 >         <div class="project-content">
 >             <div class="project-title">Mapa Wifi Gratuito en la CDMX</div>
->
->           <div class="project-date">Nov 2025</div>
+>             <div class="project-date">Agosto 2025</div>
 >         </div>
->     </a> 
->      
+>     </a>
+>
 >     <a href="proyectos/Ingresos/Tasa-de-ingresos.qmd" class="project-card">
 >         <div class="project-image-container">
->             <img src="images/Tasa Anual Ingresos.jpeg" alt="Gráfico de tasas de desempleo" class="project-image">
+>             <img src="images/Tasa Anual Ingresos.jpeg" alt="Vista previa" class="project-image">
 >         </div>
 >         <div class="project-content">
 >             <div class="project-title">Ponderación de Ingresos y cálculo de tasas</div>
->              
->             <div class="project-date">Dic 2025</div>
+>             <div class="project-date">Septiembre 2025</div>
 >         </div>
 >     </a>
->     </div>
+>
+>     <a href="proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.qmd" class="project-card">
+>         <div class="project-image-container">
+>             <img src="images/Diseño Muestral.jpeg" alt="Vista previa" class="project-image">
+>         </div>
+>         <div class="project-content">
+>             <div class="project-title">Diseño muestral y modelos de regresión</div>
+>             <div class="project-date">Octubre 2025</div>
+>         </div>
+>     </a>
+>
+>     <a href="proyectos/Modelo de regresión/Modelo-Regresión.qmd" class="project-card">
+>         <div class="project-image-container">
+>             <img src="images/Regresión Ingresos.jpeg" alt="Vista previa" class="project-image">
+>         </div>
+>         <div class="project-content">
+>             <div class="project-title">Modelos de regresión</div>
+>             <div class="project-date">Noviembre 2025</div>
+>         </div>
+>     </a>
+>
+> </div> ```
 > ```

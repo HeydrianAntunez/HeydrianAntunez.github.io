@@ -1,0 +1,364 @@
+---
+title: "Diseño de muestras complejas y modelos de regresión"
+editor: visual
+---
+
+```{=html}
+Para obtener la base de datos de la ENOE 2025Trimestre 2 pueden acceder al github en
+   <a href=https://github.com/HeydrianAntunez/INEGI-DOCUMENTOS/blob/main/conjunto_de_datos_sdem_enoe_2025_2t.zip target="_blank">
+            este enlace.
+        </a>
+```
+
+Como primer paso cargamos las librerías.
+
+```{r}
+#| message: false
+#| warning: false
+library(foreign)
+library(dplyr)
+library(ggplot2)
+library(survey)
+library(scales)
+```
+
+Abrimos la base de datos que usaremos (sustituir ruta).
+
+```{r}
+#| message: false
+#| warning: false
+Enoe_2025_T2<-read.csv("C:/Users/USER/Downloads/Bases de datos/INEGI/ENOE SDME 2015 a 2025/conjunto_de_datos_sdem_enoe_2025_2t.csv")
+
+```
+
+Exploramos los estratos y los conglomerados que se emplearán para el diseño de la muestra.
+
+```{r}
+#| message: false
+#| warning: false
+ggplot(Enoe_2025_T2, aes(x=fac_tri))+
+  geom_histogram()+
+  facet_wrap(~est)
+#Observamos el tamaño de los cluster.
+#| message: false
+#| warning: false
+Enoe_2025_T2%>%
+  summarize(n_clusters=n_distinct(est, upm))
+#Para ver en detalle la composición de los clusters correr el código:
+  #Enoe_2025_T2%>%
+  #count(est, upm)
+```
+
+Creamos nuestro diseño muestral.
+
+```{r}
+diseno<-svydesign(id=~upm, strata=~est, data=Enoe_2025_T2, 
+                  weights=~fac_tri)
+```
+
+El diseño muestral es la parte clave para la utilización muestras complejas, ya que nos permite realizar inferencias sobre la población utilizando una muestra (en este caso, una muestra recogida de la ENOE). Es necesario continuar la utilización del diseño (calculado con la paquetería survey) para hacer uso de estimadores puntales más precisos. Ejemplo de la diferencia entre valores no ponderados y ponderados (mediante diseño muestral):
+
+```{r}
+#No ponderado
+sex<-Enoe_2025_T2%>%
+  group_by(sex)%>%
+  summarize(Freq= n())%>%  #Contamos el la frecuencia agrupada por sexo
+  mutate(Prop=round(Freq*100/sum(Freq), 1))%>% #Calculamos la proporción para cada grupo de sexo
+  arrange(desc(Prop)) #Ordenamos de forma descendente
+sex
+#Ponderado
+sex_fac<-svytable(~sex, design=diseno)%>%  #Creamos una tabla a partir de los datos del diseño muestral
+  as.data.frame()%>% #Convertimos la data del diseño a un data frame
+  mutate(Prop=round(Freq*100/sum(Freq), 1))%>%
+  arrange(desc(Prop))
+sex_fac
+```
+
+[^1]
+
+[^1]: La variable sex está compuesta por los valores 1= Hombre y 2= Mujeres.
+
+```{=html}
+Observamos el mismo efecto de la ponderación en la varaible de nivel educativo.
+```
+
+```{r}
+#No ponderado
+edu<-Enoe_2025_T2%>%
+  group_by(cs_p13_1)%>%
+  summarize(Freq=n())%>%
+  mutate(Prop=round(Freq*100/sum(Freq), 1))
+edu
+#Ponderado
+educa_fac<-svytable(~cs_p13_1, design = diseno)%>%
+  as.data.frame()%>%
+  mutate(Prop_ponderada=round(Freq*100/sum(Freq), 1))
+educa_fac
+```
+
+[^2]
+
+[^2]: cs_p13_1= Grado aprobado en la Escuela.
+
+Observamos gráficamente los resultados de las tablas.
+
+```{r}
+#| message: false
+#| warning: false
+#Gráfica con datos de educación no ponederados
+ggplot(data = edu[edu$cs_p13_1 < 10, ], 
+       aes(x = factor(cs_p13_1), y = Prop)) + 
+  geom_col(fill = "lightblue") +
+  scale_x_discrete(labels = c("Ninguna", "Preescolar", "Primaria", "Secundaria", 
+                              "Preparatoria", "Normal", "Carrera técnica", 
+                              "Profesional", "Maestría", "Doctorado")) + 
+  theme(axis.text = element_text(size = 10, angle = 45), 
+        legend.position = "none") +
+  geom_text(aes(label = paste0(Freq, " ", "", "\n(", Prop, "%)"))) +
+  labs(title = "Niveles de educación: Frecuencia y proporción no ponderadas", 
+       x = "Nivel de educación", y = "Proporción")
+
+#Gráfica con datos ponderados
+ggplot(data = educa_fac, aes(x=cs_p13_1, y= Prop_ponderada))+
+  geom_col(fill="darkred")+
+  scale_x_discrete(limits=edu[edu$cs_p13_1 < 10,]$cs_p13_1, labels=c("Ninguna","Preescolar","Primaria", "Secundaria", 
+                                                       "Preparatoria", 
+                                                       "Normal", "Carrera técnica",
+                                                       "Profesional", 
+                                                       "Maestría","Doctorado","No sabe"))+
+  theme(axis.text = element_text(size=10, angle=45),legend.position = 
+          "none")+
+  geom_text(aes(label=paste0(Freq, " ", "", "\n(", Prop_ponderada, "%",")")))+ 
+  labs(title="Niveles de educación: Frecuencia y proporción ponderadas", x="Nivel 
+de educación",y="Proporción")
+```
+
+Continuando con el análisis de datos ponderados, creamos una tabla de contingencia para las variables sexo y educación.
+
+```{r}
+#Data no ponderada
+Enoe_2025_T2%>%
+  group_by(sex, cs_p13_1)%>%
+  summarise(Freq= n())
+
+#Data ponderada con diseño muestral
+educa_sex<- svytable(~cs_p13_1+ sex, design = diseno)
+educa_sex
+#Lo convertimos a un dataframe
+educa_sex<- as.data.frame(educa_sex)
+educa_sex
+```
+
+Obtenemos las proporciones de niveles de educación por sexo:
+
+```{r}
+prop_edu_sex<- educa_sex%>%
+  as.data.frame()%>%
+  group_by(sex)%>%
+  mutate(n_sex=sum(Freq), Prop_educa=Freq/sum(Freq))%>%
+  ungroup
+prop_edu_sex
+```
+
+Graficamos las proporciones de niveles de educación por sexo:
+
+```{r}
+ggplot(data= prop_edu_sex, aes(x= sex, fill = cs_p13_1, y= Prop_educa))+
+  geom_col()+
+  scale_fill_discrete(labels =c("Ninguna","Preescolar","Primaria", "Secundaria", 
+                                "Preparatoria", 
+                                "Normal", "Carrera técnica",
+                                "Profesional", 
+                                "Maestría","Doctorado","No sabe"))+
+  guides(fill=guide_legend(title="Nivel"))+
+  scale_x_discrete( labels=c("Hombres", "Mujeres"))+
+  theme(axis.text = element_text(size=10, angle=45),legend.position = 
+          "right")+
+  labs(title="Nivel de educación del jefe de familia por sexo", 
+       x="Sexo",y="Proporción")
+```
+
+Graficamos la tabla de niveles de educación por sexo:
+
+```{r}
+#| message: false
+#| warning: false
+ggplot(data=prop_edu_sex, aes(x=cs_p13_1, fill = sex, y= Freq))+
+  geom_col(position = "dodge")+   #Colocamos columnas separadas.
+  geom_text(
+    aes(label = scales::label_percent(accuracy = 0.01)(Prop_educa)), # 2. Usar label_percent
+    position = position_dodge(width = 0.9),
+    vjust = -0.5,
+    size = 2 # Aumenté un poco el tamaño de la fuente para mejor legibilidad
+  ) +
+  scale_y_continuous(labels = scales::label_number(big.mark = ",", decimal.mark = "."))+
+  scale_fill_discrete(labels=c("Hombres","Mujeres"))+  #Colocamos etiquetas para la variable sexo.
+  guides(fill=guide_legend(title = "Sexo"))+
+  scale_x_discrete(limits=educa_sex$cs_p13_1, labels=c("Ninguna","Preescolar","Primaria", "Secundaria","Preparatoria","Normal", "Carrera técnica","Profesional","Maestría","Doctorado","No sabe"))+
+  theme(axis.text = element_text(size= 10, angle=45), legend.position ="right")+
+  labs(tittle="Nivel de educacion del jefe de familia", x="Nivel educativo", y= "Total de personas")
+```
+
+Con la exploración de las tablas y de las gráficas podemos pensar que existe una diferencia entre niveles educativos en función de la variable sexo. Para observar mejor esta diferencia, debemos cuantificar esta relación. Para ello, realizamos una prueba de independencia chi-cuadrado, aplicando el diseño muestra establecido y sometiendo al cálculo de la función svychisq a las variables categóricas (nivel de educación en función del sexo).
+
+```{r}
+svychisq(~cs_p13_1+sex, design = diseno, static="Chisq") #Prueba de independencia Chi-cuadrada de pearson
+
+```
+
+Resultados: Debido al diseño muetral complejo, el svychisq no proudce un valor de x cuadrado estándar, en su lugar calcula un Estadístico F de Rao y Scott para probar la independencia.
+
+*F = 78.013: resume qué tan grande es la diferencia observada entre las frecuencias esperadas y las dos variables si fueran completamente independientes. Un valor grande sugiere una independencia poco probable.*
+
+P-value \< 2.2e-16: Representa la probabilidad de observar un estadístico de F si H0 (hipótesis nula) fuera cierta. Un valor extremadamente pequeño (con significancia alpha\<0.05) indica que es altamente improbable que las variables sean independientes.
+
+Para este caso se rechaza H0, lo que implica una relación de dependencia entre varaibles. Para el siguiente análisis tomaremos una variable numérica continua: el ingreso.
+
+```{r}
+#Como primer paso creamos un filtro para analizar sólo aquellas observaciones que tengan un ingreso>0
+
+diseño_ingresos_filt<-subset(diseno, ingocup >0) 
+
+#Calculamos la media bajo el diseño muestras complejas. Esto permite observar los errores estándar para el cálculo de las estimaciones.
+svymean(~ingocup, design= diseño_ingresos_filt, na.rm= T)
+
+
+#Calculamos los cuartiles
+svyquantile(~ingocup, design= diseño_ingresos_filt, na.rm= T, quantile=c(0.01,.25,.5,.75,.9))
+```
+
+Resultados:
+
+*svymean: El ingreso promedio ponderado de la población mexicana para el 2025 trimestre 2 es de 10,221 \$, con un error estandar de 67. 74.*
+
+Para el cálculo de los cuartiles, el caso más interesante y representativo es el cualtil 0.75 (Q3), el cual presenta que el 75 por ciento de la población tiene ingresos de 12,900 pesos o menos. También podemos observar el cálculo del error estándar (76.5), el cual mide la variabilidad de la muestra, y los intervalos de confianza al 95 por ciento de confiabilidad de que el estimador capture el valor poblacional (CI 2.5= 12,900 y CI 97.5= 13,200).
+
+A continuación realizamos un cruce de la variable continua ingreso con la variable categórica sexo:
+
+```{r}
+svyby(~ingocup, design= diseño_ingresos_filt, na.rm=T, by = ~sex, FUN=svymean, row.names=F)
+
+```
+
+Con esta tabla podemos observar cómo se distribuye el ingreso ponderado según el sexo de la población. Podemos hacer la comparativa con datos sin ponderar:
+
+```{r}
+Enoe_2025_T2%>%
+  filter(ingocup>0)%>%
+  group_by(sex)%>%
+  summarize(Frecuencia=n(), Ingreso_medio=mean(ingocup), se=sd(ingocup)/sqrt(Frecuencia))
+```
+
+Recordemos que, si bien los datos no varían enormemente, el diseño muestral ajusta correctamente los valores para poder tener estimadores mejor calculados.
+
+Hacemos el mismo ejercicio para los datos de ingreso en función del nivel educativo.
+
+```{r}
+#Ponderado
+svyby(~ingocup, design = diseño_ingresos_filt, na.rm=T, by = ~cs_p13_1, FUN= svymean, row.names= F)
+
+#Sin ponderar
+Enoe_2025_T2%>%
+  filter(ingocup>0)%>%
+  group_by(cs_p13_1)%>%
+  summarize(Frecuencia= n(), Ingreso_medio=mean(ingocup), se=sd(ingocup)/sqrt(Frecuencia))
+```
+
+Creamos una tabla que calcule los ingresos en función tanto de la educación como del sexo. Para esta ocasión, usaremos la mediana como medida de referencia, ya que es una medida de distribución que no se ve tan afectada por valores extremos o valores atípicos.
+
+```{r}
+#Primero aplicamos el diseño muestral a nuestra tabla para obtener el cuartil .50 (mediana)
+tabla<-svyby(formula = ~ingocup, by= ~ cs_p13_1+sex, design= diseño_ingresos_filt, FUN = svyquantile, quantiles=0.5, row.names=F, na.rm=T,
+             keep.names = F)
+#Añadimos a la tabla el error estándar
+tabla<- mutate(tabla, lower=ingocup-se.ingocup, upper=ingocup+se.ingocup)
+tabla
+```
+
+```{r}
+tabla$sex <- as.factor(tabla$sex)
+
+ggplot(tabla, aes(x = factor(cs_p13_1), y = ingocup, color = sex)) +
+ geom_point(size = 4,
+           position = position_dodge(width = 0.7)) +
+  scale_y_continuous(labels = label_dollar(prefix = "$")) + 
+  scale_x_discrete(labels = c("Ninguna","Preescolar","Primaria", "Secundaria","Preparatoria","Normal", "Carrera técnica","Profesional","Maestría","Doctorado","No sabe")) +
+  geom_text(
+    aes(label = label_dollar(prefix = "$")(ingocup), 
+        group = sex),
+    vjust = -2.5,
+    position = position_dodge(width = 0.7),
+    size = 2
+  ) +
+  scale_color_manual(values = c("1" = "#0072B2", "2" = "#D55E00"),
+                     labels = c("Hombres", "Mujeres")) +
+  theme_minimal() + 
+  labs(title = "Medianas de los ingresos por nivel educativo y sexo",
+       x = "Nivel Educativo",
+       y = "Ingreso Promedio ($)",
+       color = "Sexo",
+       caption= "Fuente:Encuesta Nacional de Ocupación y Empleo, INEGI") +
+theme(
+    axis.text.x = element_text(angle = 45, hjust = 1), 
+    plot.title = element_text(face = "bold"),
+    plot.caption = element_text(hjust = 1.5) 
+)
+```
+
+Ahora hacemos un boxplot con las mismas varaibles para ver la distribución de ingresos en cada nivel educativo.
+
+```{r}
+
+etiquetas_educativas <- c("Ninguna", "Preescolar", "Primaria", "Secundaria", 
+                          "Preparatoria", "Normal", "Carrera técnica", 
+                          "Profesional", "Maestría", "Doctorado")
+niveles_numericos <- 0:9
+
+Enoe_2025_ing_filt<-Enoe_2025_T2%>%
+  filter(ingocup>0) #Filtramos la base
+
+Enoe_2025_ing_filt_etiquetado <- Enoe_2025_ing_filt %>%
+  # 2.1 Crear la columna factorizada
+  mutate(cs_p13_1_factor = factor(cs_p13_1, 
+                                  levels = niveles_numericos, 
+                                  labels = etiquetas_educativas)) %>%
+  # 2.2 Aplicar el filtro original
+  filter(!is.na(ingocup),
+         !is.na(sex))
+
+# 3. Generar el gráfico usando la nueva columna factorizada en facet_wrap
+ggplot(data = Enoe_2025_ing_filt_etiquetado, 
+       mapping = aes(x = as.factor(sex), y = ingocup, color = sex)) +
+  geom_boxplot() +
+  labs(x = "Sexo", 
+       y = "Ingreso",
+       title = "Ingreso por Sexo segmentado por Nivel Educativo") +
+  # Usar la columna factorizada para los paneles
+  facet_wrap(~cs_p13_1_factor, 
+             labeller = label_value, # Usamos solo el valor de la etiqueta del factor
+             scales = "free_y") + # Usar "free_y" o "free" si quieres que las escalas se ajusten a cada panel
+  theme(axis.text.x = element_blank(), # Quitamos las etiquetas redundantes del eje X en cada panel
+        axis.ticks.x = element_blank())
+```
+
+También podemos graficar los ingresos con base en el sexo y la edad:
+
+```{r}
+library(scales)
+ggplot(Enoe_2025_ing_filt, aes(x=eda, y= ingocup, size= fac_tri, color=sex)) +
+  geom_jitter(width = 0.3, height = 0) +
+  guides(size="none") +
+  scale_y_continuous(labels = label_number(big.mark = ",", decimal.mark = ".")) +
+  labs(y="Ingreso Ocupacional", 
+       x="Edad (eda)",
+       title="Ingreso Ocupacional vs. Edad, por Sexo")
+```
+
+### Conclusión
+
+\
+El objetivo del proyecto mostrado aquí es entender el impacto que tiene el uso del diseño muestral en comparación con valores no ponderados, ya que éstos no nos permiten hacer una inferencia correcta sobre los estimadores poblacionales ni los estadísticos que se pueden calcular derivado de nuestros datos.
+
+Hasta aquí, sólo se han calculado los errores estándar y algunos coeficientes que nos permiten entender mejor la calidad de nuestros estimadores al realizar la inferencia. También se han graficado los resultados de las tablas para poner en relación algunas variables como el nivel educativo y el igreso en función de otras variables como el sexo, lo que nos permite entender mejor la distribución del ingreso en direntes sesgo categoriales.
+
+El alcance de lo revisado aquí tiene su límite en lo representacional visual y la medición de la inferencia, por lo tanto, el tema del cálcula de los coeficientes de las relaciones entre varaibles debe ser estudiado desde modelos específicos que permitan procesarlos, tal como lo serían las regresiones lineales, tema del cual también se habla en otro proyecto publicado aquí.
