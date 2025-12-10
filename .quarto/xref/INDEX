@@ -1,26 +1,20 @@
 {
   "Portafolio.qmd": {
-    "Portafolio.html": "823f0b99"
+    "Portafolio.html": "7855ade9"
   },
   "CV.qmd": {
-    "CV.html": "77743417"
-  },
-  "proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.qmd": {
-    "Diseño-muestras-complejas.html": "9852882a"
-  },
-  "proyectos/Ingresos/Tasa-de-ingresos.qmd": {
-    "tasa-final-de-ingresos.html": "d2cde10d"
+    "CV.html": "d3e1609d"
   },
   "proyectos/Mapa Wifi/Acceso Wifi.qmd": {
-    "Acceso Wifi.html": "90bf7b7d"
+    "Acceso Wifi.html": "7d7b0d3f"
   },
   "proyectos/Mapa Wifi/Data/Wifi Acceso/Alcaldías/poligonos_alcaldias_cdmx.qmd": {
-    "poligonos_alcaldias_cdmx.html": "58a58d40"
-  },
-  "index.qmd": {
-    "index.html": "427ec9c8"
+    "poligonos_alcaldias_cdmx.html": "ccd1cd21"
   },
   "proyectos/Modelo de regresión/Modelo-Regresión.qmd": {
-    "Modelo-Regresión.html": "6e74dd40"
+    "Modelo-Regresión.html": "33111b4f"
+  },
+  "index.qmd": {
+    "index.html": "ea08053e"
   }
 }
