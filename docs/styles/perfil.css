@@ -245,4 +245,41 @@
         justify-content: center; /* Centra los enlaces */
         gap: 15px; 
     }
+    
+    /* 5. Estilos Específicos para los Botones de Filtro */
+    .filter-buttons {
+        /* Permite que los botones se envuelvan si no caben en una línea */
+        flex-wrap: wrap; 
+        /* CLAVE: Si quieres que cada botón ocupe menos espacio horizontal 
+           y haya más espacio entre ellos */
+        gap: 20px; /* Reduce el espacio entre botones para que quepan más */
+        padding: 10px 0; /* Reduce el padding vertical */
+    }
+
+    /* Ajusta el tamaño del botón y del círculo para móvil */
+    .filter-btn {
+        /* Le da un ancho base más pequeño para que más botones quepan por fila */
+        width: 150px; /* Puedes ajustar este valor si lo necesitas */
+        padding: 5px; /* Reduce el padding interno */
+        font-size: 16px; /* Reduce el tamaño del texto del botón */
+    }
+    
+    /* Ajusta el tamaño del contenedor circular del icono */
+    .icon-wrapper {
+        width: 70px !important;  /* Tamaño más pequeño para móvil */
+        height: 70px !important; /* Tamaño más pequeño para móvil */
+        margin-bottom: 5px; /* Reduce el margen inferior */
+    }
+    
+    /* 6. Ajuste de Tarjetas de Portafolio */
+    /* Asegura que las tarjetas de portafolio se centren mejor en móvil */
+    .portfolio-grid {
+        /* Remueve el margen automático que podría causar problemas 
+           y usa padding para espacio en los lados */
+        padding: 20px; 
+    }
+    
+    .project-card {
+        max-width: 100%; /* Permite que las tarjetas ocupen todo el ancho disponible */
+    }
 }
