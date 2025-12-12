@@ -1,12 +1,39 @@
 ---
 title: "Portafolio"
-format: html
-editor: visual
+format:
+  html:
+    css: styles/perfil.css 
+    include-in-header:
+      - text: |
+          <script src="filter.js"></script> 
 ---
 
 > ```{=html}
+> <div class="filter-buttons">
+>     <button class="filter-btn active" data-filter="all">
+>         <div class="icon-wrapper"> 
+>             <img src="images/Todos.jpeg" alt="Todos" class="filter-icon">
+>         </div>
+>         <span>Todos</span>
+>     </button>
+>     
+>     <button class="filter-btn" data-filter="rstudio">
+>         <div class="icon-wrapper"> 
+>             <img src="images/Rstudio.png" alt="RStudio" class="filter-icon">
+>         </div>
+>         <span>RStudio</span>
+>     </button>
+>     
+>     <button class="filter-btn" data-filter="powerbi">
+>         <div class="icon-wrapper"> 
+>             <img src="images/Power BI.png" alt="Power BI" class="filter-icon">
+>         </div>
+>         <span>Power BI</span>
+>     </button>
+> </div>
+>
 > <div class="portfolio-grid">
->     <a href="proyectos/Mapa Wifi/Acceso Wifi.qmd" class="project-card">
+>     <a href="proyectos/Mapa Wifi/Acceso Wifi.qmd" class="project-card" data-category="rstudio">
 >         <div class="project-image-container">
 >             <img src="images/Acceso Wifi.jpeg" alt="Vista previa" class="project-image">
 >         </div>
@@ -16,7 +43,7 @@ editor: visual
 >         </div>
 >     </a>
 >
->     <a href="proyectos/Ingresos/Tasa-de-ingresos.qmd" class="project-card">
+>     <a href="proyectos/Ingresos/Tasa-de-ingresos.qmd" class="project-card" data-category="rstudio">
 >         <div class="project-image-container">
 >             <img src="images/Tasa Anual Ingresos.jpeg" alt="Vista previa" class="project-image">
 >         </div>
@@ -26,7 +53,7 @@ editor: visual
 >         </div>
 >     </a>
 >
->     <a href="proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.qmd" class="project-card">
+>     <a href="proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.qmd" class="project-card" data-category="rstudio">
 >         <div class="project-image-container">
 >             <img src="images/Diseño Muestral.jpeg" alt="Vista previa" class="project-image">
 >         </div>
@@ -36,7 +63,7 @@ editor: visual
 >         </div>
 >     </a>
 >
->     <a href="proyectos/Modelo de regresión/Modelo-Regresión.qmd" class="project-card">
+>     <a href="proyectos/Modelo de regresión/Modelo-Regresión.qmd" class="project-card" data-category="rstudio">
 >         <div class="project-image-container">
 >             <img src="images/Regresión Ingresos.jpeg" alt="Vista previa" class="project-image">
 >         </div>
@@ -45,8 +72,8 @@ editor: visual
 >             <div class="project-date">Noviembre 2025</div>
 >         </div>
 >     </a>
->     
->     <a href="proyectos/CONACYT/Investigadores CONACYT.qmd" class="project-card">
+>
+>     <a href="proyectos/CONACYT/Investigadores CONACYT.qmd" class="project-card" data-category="powerbi">
 >         <div class="project-image-container">
 >             <img src="images/CONACYT.jpg" alt="Vista previa" class="project-image">
 >         </div>
@@ -55,8 +82,8 @@ editor: visual
 >             <div class="project-date">Noviembre 2025</div>
 >         </div>
 >     </a>
->     
->     <a href="proyectos/Incidentes/Incidentes.qmd" class="project-card">
+>
+>     <a href="proyectos/Incidentes/Incidentes.qmd" class="project-card" data-category="powerbi">
 >         <div class="project-image-container">
 >             <img src="images/Incidentes.jpg" alt="Vista previa" class="project-image">
 >         </div>
@@ -66,5 +93,5 @@ editor: visual
 >         </div>
 >     </a>
 >
-> </div> 
+> </div>
 > ```

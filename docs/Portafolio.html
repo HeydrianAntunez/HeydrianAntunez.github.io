@@ -69,6 +69,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="filter.js"></script>
 
 
 <link rel="stylesheet" href="styles/perfil.css">
@@ -133,8 +134,31 @@ ul.task-list li input[type="checkbox"] {
 
 
 <blockquote class="blockquote">
+<div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">
+        <div class="icon-wrapper"> 
+            <img src="images/Todos.jpeg" alt="Todos" class="filter-icon">
+        </div>
+        <span>Todos</span>
+    </button>
+    
+    <button class="filter-btn" data-filter="rstudio">
+        <div class="icon-wrapper"> 
+            <img src="images/Rstudio.png" alt="RStudio" class="filter-icon">
+        </div>
+        <span>RStudio</span>
+    </button>
+    
+    <button class="filter-btn" data-filter="powerbi">
+        <div class="icon-wrapper"> 
+            <img src="images/Power BI.png" alt="Power BI" class="filter-icon">
+        </div>
+        <span>Power BI</span>
+    </button>
+</div>
+
 <div class="portfolio-grid">
-    <a href="./proyectos/Mapa Wifi/Acceso Wifi.html" class="project-card">
+    <a href="./proyectos/Mapa Wifi/Acceso Wifi.html" class="project-card" data-category="rstudio">
         <div class="project-image-container">
             <img src="images/Acceso Wifi.jpeg" alt="Vista previa" class="project-image">
         </div>
@@ -144,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </a>
 
-    <a href="./proyectos/Ingresos/tasa-final-de-ingresos.html" class="project-card">
+    <a href="./proyectos/Ingresos/tasa-final-de-ingresos.html" class="project-card" data-category="rstudio">
         <div class="project-image-container">
             <img src="images/Tasa Anual Ingresos.jpeg" alt="Vista previa" class="project-image">
         </div>
@@ -154,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </a>
 
-    <a href="./proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.html" class="project-card">
+    <a href="./proyectos/Diseño de muestras complejas/Diseño-muestras-complejas.html" class="project-card" data-category="rstudio">
         <div class="project-image-container">
             <img src="images/Diseño Muestral.jpeg" alt="Vista previa" class="project-image">
         </div>
@@ -164,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </a>
 
-    <a href="./proyectos/Modelo de regresión/Modelo-Regresión.html" class="project-card">
+    <a href="./proyectos/Modelo de regresión/Modelo-Regresión.html" class="project-card" data-category="rstudio">
         <div class="project-image-container">
             <img src="images/Regresión Ingresos.jpeg" alt="Vista previa" class="project-image">
         </div>
@@ -173,8 +197,8 @@ ul.task-list li input[type="checkbox"] {
             <div class="project-date">Noviembre 2025</div>
         </div>
     </a>
-    
-    <a href="./proyectos/CONACYT/Investigadores CONACYT.html" class="project-card">
+
+    <a href="./proyectos/CONACYT/Investigadores CONACYT.html" class="project-card" data-category="powerbi">
         <div class="project-image-container">
             <img src="images/CONACYT.jpg" alt="Vista previa" class="project-image">
         </div>
@@ -183,8 +207,8 @@ ul.task-list li input[type="checkbox"] {
             <div class="project-date">Noviembre 2025</div>
         </div>
     </a>
-    
-    <a href="./proyectos/Incidentes/Incidentes.html" class="project-card">
+
+    <a href="./proyectos/Incidentes/Incidentes.html" class="project-card" data-category="powerbi">
         <div class="project-image-container">
             <img src="images/Incidentes.jpg" alt="Vista previa" class="project-image">
         </div>
@@ -194,7 +218,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     </a>
 
-</div> 
+</div>
 </blockquote>
 
 

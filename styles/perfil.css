@@ -1,4 +1,4 @@
-/*Define la barra de home*/
+/* ---------->Define la barra de home<----------*/
 
 .navbar-nav {
     /* Define el contenedor de la navbar como un Flexbox */
@@ -69,7 +69,64 @@
 }
 
 
-/* --- ESTILOS DE PORTAFOLIO (Se mantienen igual) --- */
+/* ==================================== */
+/* ESTILOS PARA LOS BOTONES DE FILTRO */
+/* ==================================== */
+
+
+.filter-buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 30px; /* Espacio entre los botones */
+    margin-bottom: 40px; /* Espacio debajo de los botones */
+    padding: 20px 0;
+}
+
+.filter-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s, opacity 0.2s; /* Transición para efectos de hover */
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; /* Color de texto base */
+}
+
+.filter-btn:hover {
+    transform: scale(1.05); /* Ligeramente más grande al pasar el mouse */
+}
+
+/* === ESTILOS PARA EL CONTENEDOR CIRCULAR (WRAPPER) === */
+/* === ESTILOS PARA EL CONTENEDOR CIRCULAR (WRAPPER) === */
+.icon-wrapper {
+    width: 100px !important;       /* ¡FUERZA EL TAMAÑO! */
+    height: 100px !important;      /* ¡FUERZA EL TAMAÑO! */
+    border-radius: 50% !important;
+    overflow: hidden !important; 
+    margin-bottom: 10px;
+    border: 1px solid transparent; 
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Estilo para el icono/imagen DENTRO del contenedor */
+.filter-icon {
+    width: 100% !important;       /* ¡FUERZA LA IMAGEN A LLENAR EL WRAPPER! */
+    height: 100% !important;      /* ¡FUERZA LA IMAGEN A LLENAR EL WRAPPER! */
+    object-fit: cover !important; 
+}
+
+/* Estilo para el botón ACTIVO (solo aplicamos el estilo al contenedor .icon-wrapper) */
+.filter-btn.active .icon-wrapper {
+    border: 3px solid #007bff !important; 
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5) !important;
+}
+
+/* FIN DEL CÓDIGO DE FILTRO */
+/* ------------> --- ESTILOS DE PORTAFOLIO  <------------------------- */
 
 .portfolio-grid {
     display: grid;
@@ -107,11 +164,19 @@
     width: 100%;
     text-decoration: none; 
     color: inherit; 
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .project-card:hover {
     transform: translateY(-5px); 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.project-card.hidden {
+    opacity: 0; /* Desvanece la tarjeta */
+    transform: scale(0.95);
+    /* Crucial para que no ocupe espacio después de la transición: */
+    display: none; 
 }
 
 .project-content {
