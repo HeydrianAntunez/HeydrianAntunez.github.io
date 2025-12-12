@@ -4,4 +4,6 @@ subtitle: " Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (S
 editor: visual
 ---
 
-## <iframe title="Datos de incidentes delictivos" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=1e541468-eb8e-4c7a-b3e1-1971ba5818fc&autoAuth=true&ctid=6a5cd822-4de2-4be2-9ff0-58a9a239e1d8&actionBarEnabled=true&reportCopilotInEmbed=true" frameborder="0" allowFullScreen="true"></iframe>
+```{=html}
+<iframe title="Datos de incidentes delictivos" width="920" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiZGFmNGQ3NGEtMmYzOS00ZThmLWE5YzUtYTY5ZjYyMjY4ODQ0IiwidCI6IjZhNWNkODIyLTRkZTItNGJlMi05ZmYwLTU4YTlhMjM5ZTFkOCJ9" frameborder="0" allowFullScreen="true"></iframe>
+```
