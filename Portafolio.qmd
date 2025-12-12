@@ -45,6 +45,26 @@ editor: visual
 >             <div class="project-date">Noviembre 2025</div>
 >         </div>
 >     </a>
+>     
+>     <a href="proyectos/CONACYT/Investigadores CONACYT.qmd" class="project-card">
+>         <div class="project-image-container">
+>             <img src="images/CONACYT.jpg" alt="Vista previa" class="project-image">
+>         </div>
+>         <div class="project-content">
+>             <div class="project-title">POWER BI: Investigadores CONACYT</div>
+>             <div class="project-date">Noviembre 2025</div>
+>         </div>
+>     </a>
+>     
+>     <a href="proyectos/Incidentes/Incidentes.qmd" class="project-card">
+>         <div class="project-image-container">
+>             <img src="images/Incidentes.jpg" alt="Vista previa" class="project-image">
+>         </div>
+>         <div class="project-content">
+>             <div class="project-title">POWER BI: Incidentes Delictivos México 2025</div>
+>             <div class="project-date">Noviembre 2025</div>
+>         </div>
+>     </a>
 >
-> </div> ```
+> </div> 
 > ```

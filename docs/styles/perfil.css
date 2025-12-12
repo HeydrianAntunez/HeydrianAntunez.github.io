@@ -170,6 +170,7 @@
     }
 
     /* Quitar el justify del texto principal en móvil */
+      /* -------->esto puede afectar que el texto del mobil se ve no justificado<-------*/
     .columna-texto p {
         text-align: left;
     }
