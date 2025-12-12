@@ -92,6 +92,6 @@ format:
 >             <div class="project-date">Noviembre 2025</div>
 >         </div>
 >     </a>
->
+>     
 > </div>
 > ```

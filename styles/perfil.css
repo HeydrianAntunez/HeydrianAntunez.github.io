@@ -246,7 +246,7 @@
         gap: 15px; 
     }
     
-    /* 5. Estilos Específicos para los Botones de Filtro */
+    /*---------------> 5. Estilos Específicos para los Botones de Filtro <------------- */
     .filter-buttons {
         /* Permite que los botones se envuelvan si no caben en una línea */
         flex-wrap: wrap; 
@@ -271,7 +271,7 @@
         margin-bottom: 5px; /* Reduce el margen inferior */
     }
     
-    /* 6. Ajuste de Tarjetas de Portafolio */
+    /*  -----------> 6. Ajuste de Tarjetas de Portafolio<----------- */
     /* Asegura que las tarjetas de portafolio se centren mejor en móvil */
     .portfolio-grid {
         /* Remueve el margen automático que podría causar problemas 
@@ -281,5 +281,25 @@
     
     .project-card {
         max-width: 100%; /* Permite que las tarjetas ocupen todo el ancho disponible */
+    }
+    
+    /* ---------> Visualización en móbiles para las interfaces de Power BI<----------*/
+    .powerbi-embed-container {
+    /* Asegura que el contenedor ocupe el ancho disponible */
+    width: 100%; 
+    padding: 0 5px; /* Pequeño margen horizontal si es necesario */
+    }
+
+    .powerbi-embed-container iframe {
+    /* CLAVE 1: Forzar al iframe a ocupar el 100% del ancho del contenedor */
+    width: 100% !important; 
+    
+    /* CLAVE 2: Asegurar una altura suficiente (ajusta este valor si es necesario) 
+       para que no tengas que hacer scroll vertical para ver el dashboard completo 
+       o la zona de inicio de sesión si Power BI lo necesita. */
+    min-height: 850px; /* Una buena altura para un dashboard estándar */
+    
+    border: none;
+    display: block;
     }
 }

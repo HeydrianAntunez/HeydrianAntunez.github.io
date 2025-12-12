@@ -4,5 +4,9 @@ editor: visual
 ---
 
 ```{=html}
+<div class="powerbi-embed-container">
+  
 <iframe title="CONACYT" width="980" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiNzdjMzc5MTEtNGY3Yi00ZmUxLThlMWUtNDkxYTBmMTY1ZmM0IiwidCI6IjZhNWNkODIyLTRkZTItNGJlMi05ZmYwLTU4YTlhMjM5ZTFkOCJ9" frameborder="0" allowFullScreen="true"></iframe>
+
+</div>
 ```
