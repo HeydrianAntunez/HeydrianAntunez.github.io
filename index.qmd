@@ -17,13 +17,15 @@
 </head>
 <body>
 
-    <!-- A partir de aquí va el código que me proporcionaste: -->
+    <!-- Código del cuerpo/body del contenido -->
     <div class="perfil-container">
         
         <div class="columna-imagen">
             
             <img src="images/foto profesional.png" alt="Foto de Perfil" class="imagen-perfil">
             
+                <!-- Enlaces a páginas personales -->
+
             <div class="links-container">
                 <ul>
                     <li><a href="https://www.linkedin.com/in/adrián-cruz-antúnez-312098184/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>

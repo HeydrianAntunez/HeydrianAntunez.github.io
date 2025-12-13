@@ -54,7 +54,7 @@ wifi <- read_excel(archivo_temporal, sheet = "CDMX")
 ```
 
 ::: description
-Para poder utilizar el archivo xlsx es necesario limpiar los datos geográficos y convertirlo a un archivo sph, lo que noa ayudará para le mapeado.
+Para poder utilizar el archivo xlsx es necesario limpiar los datos geográficos y convertirlo a un archivo sph, lo que nos ayudará para le mapeado.
 
 ```{r}
 wifi_limpio <- wifi %>%
@@ -69,9 +69,9 @@ Con estos datos ya podemos graficar la zona de la Ciudad de México.
 
 ```{r}
 #| label: mapa-wifi
-#| fig-width: 6.4   
-#| fig-height: 4.27  
-#| fig-dpi: 400  
+#| fig-width: 9  
+#| fig-height: 8
+#| fig-dpi: 900  
 ggplot() +
   # 1. CAPA BASE: Alcadías de la CDMX
   geom_sf(data = alcaldias_CDMX, 

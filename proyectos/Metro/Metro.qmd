@@ -1,0 +1,10 @@
+---
+title: "Metro"
+editor: visual
+---
+
+```{=html}
+<div class="powerbi-embed-container">
+<iframe title="Datos Metro" width="920" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiYWJhOWE4MTgtNWUwYy00YTllLTlkMjYtMjI5NDc1MjZmOGM5IiwidCI6IjZhNWNkODIyLTRkZTItNGJlMi05ZmYwLTU4YTlhMjM5ZTFkOCJ9" frameborder="0" allowFullScreen="true"></iframe>
+</div>
+```

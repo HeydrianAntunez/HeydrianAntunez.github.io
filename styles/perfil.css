@@ -43,11 +43,11 @@
     border-left: 2px solid rgba(128, 128, 128, 0.4); 
 }
 
-/* Estilos para que la lista de enlaces se vea limpia */
+/* ------------> Estilos LINKS PERSONALES <--------- */
 .links-container {
     margin-top: 20px;
     padding-top: 10px;
-    border-top: 1px dashed #ccc; /* Separador sutil para los enlaces */
+    border-top: 2px dashed #ccc; /* Separador sutil para los enlaces */
 }
 
 .links-container ul {
@@ -68,6 +68,37 @@
     text-align: justify;
 }
 
+/*Cabiar el tamaña de las letras de los íconos*/ 
+
+.links-container ul li a {
+    /* Define el tamaño de la fuente para el texto del enlace */
+    font-size: 20px; /* Ejemplo: 18 píxeles. Ajusta este valor según necesites. */
+    
+    /* Opcional: para asegurar que se vea bien si hay iconos */
+    vertical-align: middle;
+}
+
+/* ==================================== */
+/* 1. AJUSTE DEL PADRE PARA POSICIONAMIENTO ABSOLUTO */
+/* ==================================== */
+
+.columna-imagen {
+    /* CLAVE: Establece el contexto relativo para posicionar 
+       la escultura ABSOLUTAMENTE dentro de esta columna. */
+    position: relative;
+    /* El resto de tus estilos (.columna-imagen) se mantienen */
+}
+
+/* ==================================== */
+/* 3. RESPONSIVIDAD (Ocultar en móvil)  */
+/* ==================================== */
+
+@media (max-width: 768px) {
+    /* Oculta la escultura decorativa en móvil para mantener la limpieza */
+    .escultura-decorativa {
+        display: none;
+    }
+}
 
 /* ==================================== */
 /* ESTILOS PARA LOS BOTONES DE FILTRO */
